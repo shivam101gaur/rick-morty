@@ -7,6 +7,15 @@ Filter the character by
 - Gender : Male, Female, Genderless, Unknown
 - Species  : Human, Humanoid, Cronenberg
 
+
+### Run the web app on local server
+- Install npm packages
+  
+  ```npm i```
+
+- Run the app
+  
+    ```ng s -o```
 ### Responsive web app
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.4.
