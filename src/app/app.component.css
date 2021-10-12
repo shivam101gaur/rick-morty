@@ -1,0 +1,123 @@
+@media (max-width: 800px) {
+    .filtercard {
+      flex-direction: column;
+      align-items: stretch !important;
+    }
+    .filterValues{
+        margin: 0 !important;
+        width: 100%!important;
+        overflow: auto;
+    }
+
+  }
+.filtercard {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: fixed;
+    z-index: 2;
+    width: 90vw;
+    right: 0;
+    left: 0vw;
+    padding: 10px;
+    margin: 1.5% auto;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    overflow: auto;
+}
+
+.filterCardEntry {
+    animation: fadeInDown 350ms forwards;
+}
+
+.filterCardExits {
+    animation: fadeOutUp 350ms forwards;
+}
+.filterValues{
+    margin:0 20px;padding: 0;
+}
+.filterBtn {
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    margin: 1.5%;
+}
+.scrollBtn {
+    position: fixed;
+    z-index: 999;
+    right: 0;
+    margin: 1.5%;
+    border-radius: 100px;
+    background-color: white;
+}
+
+.charDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0;
+    width: 85%;
+    height: 85%;
+    border-radius: 10px;
+    background-size: cover;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    align-items: center;
+    overflow: hidden;
+    background-color: rgb(11, 85, 73);
+  
+}
+
+.charDetails {
+    background-color: rgb(1 1 1 / 30%);
+    color: white;
+    backdrop-filter: blur(5px);
+    height: -moz-fit-content;
+    height: fit-content;
+    overflow: hidden;
+    visibility: hidden;
+    padding: 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 0;
+    transition: max-height 0.15s ease-out;
+    /* transition: max-width 0.15s ease-out; */
+    overflow: hidden;
+    user-select: none;
+    white-space: normal;
+    flex-wrap: nowrap; 
+    font-family: 'Indie Flower', cursive;
+    font-size: 20px;
+    
+}
+
+
+.charDiv:hover .charDetails {
+    animation: frostAnimation 350ms linear forwards;
+    max-height: 100%;
+    transition: max-height 0.25s ease-in;
+    /* max-width: 100%;
+    transition: max-width 0.25s ease-in; */
+}
+
+@keyframes frostAnimation {
+    0% {
+        backdrop-filter: blur(0px);
+    }
+    100% {
+        backdrop-filter: blur(5px);
+        visibility: visible;
+        padding: 50% 5px;
+    }
+}
+
+.loadbtn {
+    position: fixed;
+    z-index: 5;
+    left: 50%;
+    bottom: 0;
+    margin: 1.5% ;
+    margin-left: -100px;
+}

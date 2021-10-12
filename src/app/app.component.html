@@ -1,0 +1,111 @@
+<div [class]="filterCardExpanded?'filterCardEntry':'filterCardExits'" class="filtercard mat-elevation-z5">
+
+
+    <mat-form-field appearance="outline">
+        <mat-label>Select Filter</mat-label>
+        <mat-select #filter="matSelect" (selectionChange)="!filter.value?resetFilter():null">
+            <mat-option style="color: grey;">
+                Clear Filter &nbsp; <mat-icon style="position: absolute;
+                right: 12px;
+                top: 0;
+                bottom: 0;
+                margin: auto;">close</mat-icon>
+            </mat-option>
+            <mat-option value="name">
+                Name
+            </mat-option>
+            <mat-option value="gender">
+                Gender
+            </mat-option>
+            <mat-option value="species">
+                Species
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <span class="filterValues"  [ngSwitch]="filter.value">
+        <span *ngSwitchCase="'name'">
+            <mat-form-field style="width: 100%;" appearance="outline">
+                <input #nameFilter="matInput" matInput placeholder="Search Character">
+                <button [disabled]="!nameFilter.value" matSuffix mat-icon-button
+                    (click)="getFilteredData('name',nameFilter.value)">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field>
+        </span>
+        <span *ngSwitchCase="'gender'">
+            <mat-button-toggle-group #genderGroup="matButtonToggleGroup"
+                (change)="getFilteredData('gender',genderGroup.value)">
+                <mat-button-toggle value="female">
+                    <mat-icon>female</mat-icon> Female
+                </mat-button-toggle>
+                <mat-button-toggle value="male">
+                    <mat-icon>male</mat-icon> Male
+                </mat-button-toggle>
+                <mat-button-toggle value="genderless">
+                    <mat-icon>smart_toy</mat-icon> Genderless
+                </mat-button-toggle>
+                <mat-button-toggle value="unknown">
+                    <mat-icon>no_accounts</mat-icon> Unknown
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+
+        </span>
+
+        <span *ngSwitchCase="'species'">
+            <mat-button-toggle-group #speciesGroup="matButtonToggleGroup"
+                (change)="getFilteredData('species',speciesGroup.value)">
+                <mat-button-toggle value="human">
+                    <mat-icon>emoji_people</mat-icon> Human
+                </mat-button-toggle>
+                <mat-button-toggle value="humanoid">
+                    <mat-icon>accessible_forward</mat-icon> Humanoid
+                </mat-button-toggle>
+                <mat-button-toggle value="cronenberg">
+                    <mat-icon>flutter_dash</mat-icon> Cronenberg
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </span>
+
+    </span>
+
+
+</div>
+<button class="filterBtn" (click)="filterCardExpanded=!filterCardExpanded;" color="accent" mat-mini-fab>
+    <mat-icon *ngIf="filterCardExpanded">close</mat-icon>
+    <mat-icon *ngIf="!filterCardExpanded">filter_alt</mat-icon>
+</button>
+<button class="scrollBtn" (click)="scrollToTop()" mat-stroked-button>
+    <mat-icon>keyboard_double_arrow_up</mat-icon>
+</button>
+<button class="scrollBtn" (click)="scrollToBottom()" style="bottom: 0;" mat-stroked-button>
+    <mat-icon>keyboard_double_arrow_down</mat-icon>
+</button>
+
+
+<mat-grid-list id="data" [cols]="cols" rowHeight="1:1" gutterSize="15" style="background: rgb(168 218 216);" 
+    (window:resize)="onResize($event)">
+    <mat-grid-tile *ngFor="let card of characterList;trackBy: trackByFn">
+
+        <div class="charDiv mat-elevation-z5" [style.background-image]="'url(' + card.image + ')'">
+            <!-- <img [src]="card.image" alt="character image not found"> -->
+            <div class="charDetails">
+                <ul>
+                    <h1>{{card.name}}</h1>
+                    <li>{{card.status}}</li>
+                    <li>{{card.gender}}</li>
+                    <li>{{card.species}}</li>
+                    <li *ngIf="getEpisode(card.episode[0])">{{ getEpisode(card.episode[0])?.name | titlecase }} | {{
+                        getEpisode(card.episode[0])?.episode |uppercase }}</li>
+                    <li>{{card.location.name}}</li>
+                </ul>
+            </div>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<button mat-raised-button color="primary"  *ngIf="moreDataToLoad" class="loadbtn" (click)="getAllData()">View More
+    Characters &nbsp;
+    <mat-icon>
+        autorenew</mat-icon>
+</button>
